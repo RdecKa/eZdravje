@@ -31,12 +31,38 @@ function getSessionId() {
  * @return ehrId generiranega pacienta
  */
 function generirajPodatke(stPacienta) {
-  ehrId = "";
+  var ehrId = "";
 
   // TODO: Potrebno implementirati
 
   return ehrId;
 }
 
+var izbranaOsebaEHRZapis = null;
 
-// TODO: Tukaj implementirate funkcionalnost, ki jo podpira vaša aplikacija
+$(document).ready(function() {
+    $('#izberiOsebo').change(function() {
+        $('#sporociloZgoraj').text("");
+        var podatki = $(this).val();
+        if (podatki == "") {
+            $('#izberiOseboDrugo').css("visibility", "visible");
+            $('#izberiOseboDrugo').css("height", "auto");
+            izbranaOsebaEHRZapis = null;
+        } else if (podatki == "__prazno__") {
+            izbranaOsebaEHRZapis = null;
+            $('#izberiOseboDrugo').css("visibility", "hidden");
+            $('#izberiOseboDrugo').css("height", "0");
+        } else {
+            izbranaOsebaEHRZapis = podatki;
+            $('#izberiOseboDrugo').css("visibility", "hidden");
+            $('#izberiOseboDrugo').css("height", "0");
+        }
+        //$("#izbranaOsebaEHR").val(podatki);
+    });
+});
+
+function prikaziPodatke() {
+    if (izbranaOsebaEHRZapis == null) {
+        $('#sporociloZgoraj').text("Oseba ni izbrana!");
+    }
+}

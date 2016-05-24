@@ -1,0 +1,41 @@
+#celotna-stran {
+    border: 2px solid red;
+}
+
+.center {
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+#izberiOsebo {
+    width: 20%;
+    margin: 30px auto 0px;
+}
+
+#izbranaOsebaEHR {
+    width: 30%;
+    margin: 20px auto 0px;
+}
+
+.zgoraj {
+    border: 1px solid blue;
+    text-align: center;
+    font-size: 2em;
+}
+
+.vsebina {
+    text-align: center;
+}
+
+#izberiOseboDrugo {
+    visibility: hidden;
+    height: 0;
+}
+
+.sporocilo {
+    font-size: 0.8em;
+    color: #888;
+}

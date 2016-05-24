@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>eZdravje :: 4. DN :: OIS 2015/2016</title>
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
+  <link href="knjiznice/css/stil.css" rel="stylesheet" type="text/css">
   <style>
     body {padding-top: 70px;}
   </style>
@@ -37,10 +38,27 @@
   <!-- KONEC: Menujska vrstica na vrhu spletne strani -->
 
   <!-- ZAČETEK: Vsebina aplikacije -->
-  <div class="container">
+  <div class="container" id="celotna-stran">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <p class="lead"><strong>TO-DO</strong>: Na tem mestu implementirajte vašo aplikacijo.</p>
+      <div class="zgoraj">
+        <h1>Želim podatke o osebi:</h1>
+        <div class="center">
+          <select class="form-control input-sm" id="izberiOsebo"><option value="__prazno__"></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option><option value="">... drugo ...</option></select>
+          <div id="izberiOseboDrugo">
+            <input id="izbranaOsebaEHR" type="text" class="form-control input-mini" placeholder="EHR ID">
+          </div>
+          <button type="button" class="btn btn-primary btn-xs" onclick="prikaziPodatke()">Prikaži podatke</button>
+          <p id="sporociloZgoraj" class="sporocilo"></p>
+        </div>
+      </div>
+      <div class="vsebina">
+        <div id="levo" class="col-lg-6">
+          <h2>ITM skozi čas</h2>
+        </div>
+        <div id="desno" class="col-lg-6">
+          <h2>Analiza zadnjega ITM</h2>
+          <p></p>
+        </div>
       </div>
     </div>
   </div>
