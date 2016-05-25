@@ -39,19 +39,25 @@ function generirajPodatke(stPacienta) {
 }
 
 var izbranaOsebaEHRZapis = null;
+var izbranaOsebaVpisanEHRZapis = null;
+var sessionId;
 
 $(document).ready(function() {
     $('#izberiOsebo').change(function() {
         $('#sporociloZgoraj').text("");
+        
         var podatki = $(this).val();
         if (podatki == "") {
+            izbranaOsebaEHRZapis = null;
             $('#izberiOseboDrugo').css("visibility", "visible");
             $('#izberiOseboDrugo').css("height", "auto");
-            izbranaOsebaEHRZapis = null;
+            $('#izbranaOsebaEHR').val("");
+            $('#izbranaOsebaEHR').focus();
         } else if (podatki == "__prazno__") {
             izbranaOsebaEHRZapis = null;
             $('#izberiOseboDrugo').css("visibility", "hidden");
             $('#izberiOseboDrugo').css("height", "0");
+            $('#izbranaOsebaEHR').val("");
         } else {
             izbranaOsebaEHRZapis = podatki;
             $('#izberiOseboDrugo').css("visibility", "hidden");
@@ -62,7 +68,19 @@ $(document).ready(function() {
 });
 
 function prikaziPodatke() {
-    if (izbranaOsebaEHRZapis == null) {
+    sessionId = getSessionId();
+    var izbranaOseba;
+    izbranaOsebaVpisanEHRZapis = $('#izbranaOsebaEHR').val();
+    if (izbranaOsebaEHRZapis == null && izbranaOsebaVpisanEHRZapis == "") {
         $('#sporociloZgoraj').text("Oseba ni izbrana!");
+    } else {
+        $('#sporociloZgoraj').text("");
+        if (izbranaOsebaEHRZapis == null) {
+            izbranaOseba = izbranaOsebaVpisanEHRZapis;
+        } else {
+            izbranaOseba = izbranaOsebaEHRZapis;
+        }
+        console.log("Uspešno:", izbranaOseba);
+        //console.log("EHR:", izbranaOsebaVpisanEHRZapis);
     }
 }
