@@ -95,27 +95,28 @@ function generirajPodatke(stPacienta) {
 
 function generirajMeritve(stPacienta, ehrId) {
     if (stPacienta == 1) {
-        vpisiPodatke(sessionId, ehrId, "2016-01-01T09:08", "173.3", "49", "36.7", "118", "80", "97");
-        vpisiPodatke(sessionId, ehrId, "2016-02-01T09:08", "173.4", "52", "36.9", "121", "78", "98");
-        vpisiPodatke(sessionId, ehrId, "2016-03-01T09:08", "173.4", "51", "37.1", "123", "78", "98");
-        vpisiPodatke(sessionId, ehrId, "2016-04-01T09:08", "173.3", "53", "36.6", "119", "81", "98");
-        vpisiPodatke(sessionId, ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
+        vpisiPodatke(ehrId, "2016-01-01T09:08", "173.3", "49", "36.7", "118", "80", "97");
+        vpisiPodatke(ehrId, "2016-02-01T09:08", "173.4", "52", "36.9", "121", "78", "98");
+        vpisiPodatke(ehrId, "2016-03-01T09:08", "173.4", "51", "37.1", "123", "78", "98");
+        vpisiPodatke(ehrId, "2016-04-01T09:08", "173.3", "53", "36.6", "119", "81", "98");
+        vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
     } else if (stPacienta == 2) {
-        vpisiPodatke(sessionId, ehrId, "2015-12-15T09:08", "184.4", "86", "37.7", "148", "90", "98");
-        vpisiPodatke(sessionId, ehrId, "2016-01-03T09:08", "184.4", "87", "36.5", "141", "98", "98");
-        vpisiPodatke(sessionId, ehrId, "2016-02-27T09:08", "184.2", "89", "37.3", "143", "98", "99");
-        vpisiPodatke(sessionId, ehrId, "2016-04-15T09:08", "184.5", "87", "37.1", "149", "91", "98");
-        vpisiPodatke(sessionId, ehrId, "2016-05-29T09:08", "184.4", "86", "36.8", "148", "93", "97");
+        vpisiPodatke(ehrId, "2015-12-15T09:08", "184.4", "86", "37.7", "148", "90", "98");
+        vpisiPodatke(ehrId, "2016-01-03T09:08", "184.4", "87", "36.5", "141", "98", "98");
+        vpisiPodatke(ehrId, "2016-02-27T09:08", "184.2", "89", "37.3", "143", "98", "99");
+        vpisiPodatke(ehrId, "2016-04-15T09:08", "184.5", "87", "37.1", "149", "91", "98");
+        vpisiPodatke(ehrId, "2016-05-29T09:08", "184.4", "86", "36.8", "148", "93", "97");
     } else {
-        vpisiPodatke(sessionId, ehrId, "2015-11-08T09:08", "170.2", "107", "36.7", "130", "90", "97");
-        vpisiPodatke(sessionId, ehrId, "2015-12-14T09:08", "170.4", "108", "37.5", "131", "88", "98");
-        vpisiPodatke(sessionId, ehrId, "2016-01-16T09:08", "170.5", "109", "36.3", "133", "88", "97");
-        vpisiPodatke(sessionId, ehrId, "2016-03-24T09:08", "170.4", "110", "36.8", "140", "93", "96");
-        vpisiPodatke(sessionId, ehrId, "2016-05-20T09:08", "170.2", "111", "36.5", "137", "93", "97");
+        vpisiPodatke(ehrId, "2015-11-08T09:08", "170.2", "107", "36.7", "130", "90", "97");
+        vpisiPodatke(ehrId, "2015-12-14T09:08", "170.4", "108", "37.5", "131", "88", "98");
+        vpisiPodatke(ehrId, "2016-01-16T09:08", "170.5", "109", "36.3", "133", "88", "97");
+        vpisiPodatke(ehrId, "2016-03-24T09:08", "170.4", "110", "36.8", "140", "93", "96");
+        vpisiPodatke(ehrId, "2016-05-20T09:08", "170.2", "111", "36.5", "137", "93", "97");
     }
 }
 
-function vpisiPodatke(sessionId, ehrId, datum, visina, teza, temperatura, sistolicni, diastolicni, nasicenost) {
+function vpisiPodatke(ehrId, datum, visina, teza, temperatura, sistolicni, diastolicni, nasicenost) {
+    sessionId = getSessionId();
     $.ajaxSetup({
 		headers: {"Ehr-Session": sessionId}
     });
@@ -160,6 +161,7 @@ $(document).ready(function() {
     }
     $('#izberiOsebo').change(function() {
         $('#sporociloZgoraj').text("");
+        $('#sporociloSpodaj').text("");
         
         var podatki = $(this).val();
         if (podatki == "") {
@@ -188,6 +190,7 @@ function prikaziPodatke() {
     izbranaOsebaVpisanEHRZapis = $('#izbranaOsebaEHR').val();
     if (izbranaOsebaEHRZapis == null && izbranaOsebaVpisanEHRZapis == "") {
         $('#sporociloZgoraj').text("Oseba ni izbrana!");
+        return;
     } else {
         $('#sporociloZgoraj').text("");
         if (izbranaOsebaEHRZapis == null) {
@@ -197,4 +200,34 @@ function prikaziPodatke() {
         }
         console.log("Uspešno:", izbranaOseba);
     }
+    $.ajax({
+		url: baseUrl + "/demographics/ehr/" + izbranaOseba + "/party",
+        type: 'GET',
+		headers: {"Ehr-Session": sessionId},
+		success: function(data) {
+            console.log("Uspešno");
+            var party = data.party;
+            console.log(party.firstNames + " " + party.lastNames)
+            $.ajax({
+				url: baseUrl + "/view/" + izbranaOseba + "/height",
+				type: 'GET',
+				headers: {"Ehr-Session": sessionId},
+				success: function (res) {
+				    if (res.length > 0) {
+				        for (var i in res) {
+				            console.log(res[i].time + " " + res[i].weight + res[i].height);
+				        }
+				    } else {
+				        $('#sporociloSpodaj').text("O tej osebi ne obstaja noben zapis.");
+				    }
+				},
+				error: function (res) {
+				    console.log("Buuu");
+				}
+            });
+		},
+		error: function(err) {
+		    console.log("Ups");
+		}
+    });
 }
