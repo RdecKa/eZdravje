@@ -20,13 +20,31 @@ h2 {
     margin: 20px auto 0px;
 }
 
+.obdobje {
+    width: 100px;
+    margin: 0 10px;
+}
+
+.obdobjeBesedilo {
+    padding: 8px 0;
+}
+
+.obdobjeButton {
+    margin: 7px 2px;
+}
+
+.sporocilo span, .obdobjeButton {
+    display: block;
+    float: left;
+}
+
 .zgoraj {
     border: 1px solid blue;
     text-align: center;
     font-size: 2em;
 }
 
-.vsebina {
+#vsebina {
     text-align: center;
 }
 
@@ -51,12 +69,20 @@ h2 {
 
 /* CHART */
 
-.chart rect {
+graf rect {
   fill: steelblue;
 }
 
-.chart text {
-  fill: white;
+graf text {
+  fill: black;
   font: 10px sans-serif;
   text-anchor: middle;
+}
+
+#graf {
+    min-width: 50px;
+}
+
+.bar:hover {
+    fill: red;
 }

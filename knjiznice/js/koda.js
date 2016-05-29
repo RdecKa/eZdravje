@@ -99,7 +99,7 @@ function generirajMeritve(stPacienta, ehrId) {
         vpisiPodatke(ehrId, "2016-02-01T09:08", "173.4", "52", "36.9", "121", "78", "98");
         vpisiPodatke(ehrId, "2016-03-01T09:08", "173.4", "51", "37.1", "123", "78", "98");
         vpisiPodatke(ehrId, "2016-04-01T09:08", "173.3", "53", "36.6", "119", "81", "98");
-        vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
+        //vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
     } else if (stPacienta == 2) {
         vpisiPodatke(ehrId, "2015-12-15T09:08", "184.4", "86", "37.7", "148", "90", "98");
         vpisiPodatke(ehrId, "2016-01-03T09:08", "184.4", "87", "36.5", "141", "98", "98");
@@ -156,6 +156,7 @@ var izbranaOsebaVpisanEHRZapis = null;
 var sessionId;
 
 $(document).ready(function() {
+    $('#vsebina').css("visibility", "hidden");
     for (var i = 1; i <= 3; i++) {
         generirajPodatke(i);
     }
@@ -180,11 +181,22 @@ $(document).ready(function() {
             $('#izberiOseboDrugo').css("visibility", "hidden");
             $('#izberiOseboDrugo').css("height", "0");
         }
-        //$("#izbranaOsebaEHR").val(podatki);
+        pobrisiStarePodatke();
     });
 });
 
+function pobrisiStarePodatke() {
+    //$('#sporociloLevo').text("");
+    $('#sporociloDesno').text("");
+    $('#podatkiDesno').text("");
+    pobrisiGraf();
+    $('#vsebina').css("visibility", "hidden");
+}
+
+var visine, teze;
 function prikaziPodatke() {
+    pobrisiStarePodatke();
+    visine = [], teze = [];
     sessionId = getSessionId();
     var izbranaOseba;
     izbranaOsebaVpisanEHRZapis = $('#izbranaOsebaEHR').val();
@@ -199,6 +211,7 @@ function prikaziPodatke() {
             izbranaOseba = izbranaOsebaEHRZapis;
         }
     }
+    $('#vsebina').css("visibility", "visible");
     $.ajax({
 		url: baseUrl + "/demographics/ehr/" + izbranaOseba + "/party",
         type: 'GET',
@@ -206,8 +219,7 @@ function prikaziPodatke() {
 		success: function(data) {
             var party = data.party;
             console.log(party.firstNames + " " + party.lastNames);
-            var visine = [], teze = [];
-            var niPodatkov = false;
+            
             $.ajax({
 				url: baseUrl + "/view/" + izbranaOseba + "/height",
 				type: 'GET',
@@ -258,17 +270,22 @@ function itm(teze, visine) {
     var bmi = [];
     for (var i in teze) {
         var t = {
-            datum: i,
-            teza: teze[i],
-            visina: visine[i]
+            datum: i.substring(0, 10),
+            itm: (teze[i] / (visine[i] * visine[i] / 10000))
         };
         bmi.push(t);
     }
+    bmi = urediPoDatumuNarascajoce(bmi);
     return bmi;
 }
 
-function izrisiGrafITM(itm) {
-    console.log(itm);
+function urediPoDatumuNarascajoce(bmi) {
+    var novBMI = [];
+    for (var i = bmi.length - 1; i >= 0; i--) {
+        novBMI.push(bmi[i]);
+    }
+    console.log(novBMI);
+    return novBMI;
 }
 
 function analizirajZadnjiZapis(visina, teza) {
@@ -302,4 +319,36 @@ function optimalnaTezaMin(visina) {
 function optimalnaTezaMax(visina) {
     var max = 24.9 * visina * visina / 10000;
     return max;
+}
+
+function vrniDatum(string) {
+    var leto = parseInt(string.substring(0, 4));
+    var mesec = parseInt(string.substring(5, 7)) - 1;
+    var dan = parseInt(string.substring(8, 10));
+    var d = new Date(leto, mesec, dan);
+    return d;
+}
+
+function izrisiNovGraf() {
+    pobrisiGraf();
+    var start = vrniDatum($('#obdobjePrikazaZacetek').val());
+    var stop = vrniDatum($('#obdobjePrikazaKonec').val());
+    console.log(start, stop);
+    if (stop < start) {
+        $('#sporociloLevo').text("Neveljaven termin!");
+    } else {
+        var bmi = []
+        for (var i in visine) {
+            var d = vrniDatum(i);
+            if (d >= start && d <= stop) {
+                var t = {
+                    datum: i.substring(0, 10),
+                    itm: (teze[i] / (visine[i] * visine[i] / 10000))
+                };
+                bmi.push(t);
+            }
+        }
+        bmi = urediPoDatumuNarascajoce(bmi);
+        izrisiGrafITM(bmi);
+    }
 }
