@@ -257,9 +257,12 @@ function prikaziPodatke() {
 function itm(teze, visine) {
     var bmi = [];
     for (var i in teze) {
-        var m = teze[i];
-        var h = visine[i];
-        bmi.push(m / (h * h / 10000));
+        var t = {
+            datum: i,
+            teza: teze[i],
+            visina: visine[i]
+        };
+        bmi.push(t);
     }
     return bmi;
 }
@@ -285,7 +288,7 @@ function analizirajZadnjiZapis(visina, teza) {
     if (itm < 18.5 || itm > 24.9) {
         rezultat += " Vaša opimalna teža je med " + min + "kg in " + max + "kg.";
     }
-    $('#podatkiDesno').html('<span class="krepko">Višina: </span><span>' + visina + 'kg</span></br>' +
+    $('#podatkiDesno').html('<span class="krepko">Višina: </span><span>' + visina + 'm</span></br>' +
         '<span class="krepko">Teža: </span><span>' + teza + 'kg</span></br>' + 
         '<span class="krepko">ITM: </span>' + Math.round(itm * 10)/10);
     $('#sporociloDesno').text(rezultat);
