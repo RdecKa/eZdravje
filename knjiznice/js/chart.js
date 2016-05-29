@@ -26,7 +26,7 @@ var svg = d3.select("graf").append("svg")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-console.log(data);
+
   x.domain(data.map(function(d) { return d.datum; }));
   y.domain([0, d3.max(data, function(d) { return d.itm > 30 ? d.itm : 30; })]);
 
@@ -53,10 +53,10 @@ console.log(data);
       .attr("y", function(d) { return y(d.itm); })
       .attr("height", function(d) { return height - y(d.itm); });
 
-function type(d) {
+/*function type(d) {
   d.itm = +d.itm;
   return d;
-}
+}*/
 
 }
 
