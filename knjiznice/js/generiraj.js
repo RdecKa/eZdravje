@@ -23,10 +23,12 @@ function generirajPodatke(stPacienta) {
         ime = "Jakob";
         priimek = "Jezeršek";
         datumRojstva = "1985-01-26T01:37";
-    } else {
+    } else if (stPacienta == 3) {
         ime = "Mojca";
         priimek = "Kržišnik";
         datumRojstva = "1957-12-24T22:12";
+    } else {
+        return;
     }
   
     $.ajaxSetup({
@@ -49,7 +51,7 @@ function generirajPodatke(stPacienta) {
                 contentType: 'application/json',
                 data: JSON.stringify(partyData),
                 success: function (party) {
-                    //console.log("Uspešno kreiran EHR: " + ehrId);
+                    //console.log("Uspešno kreiran EHR (" + ime + " " + priimek + "): " + ehrId);
                     rezultat += "<option value='" + ehrId + "'>" + ime + " " + priimek + "</option>";
                     if (stPacienta == 3) {
                         rezultat += "<option value=''>... drugo ...</option>";
@@ -59,7 +61,8 @@ function generirajPodatke(stPacienta) {
                     return ehrId;
                 },
                 error: function(err) {
-                    console.log("Napaka");
+                    //console.log("Napaka");
+                    $('#sporociloZgoraj').html("Prišlo je do napake: " + JSON.parse(err.responseText).userMessage);
                     return null;
                 }
             });
@@ -80,7 +83,7 @@ function generirajMeritve(stPacienta, ehrId) {
         vpisiPodatke(ehrId, "2016-02-27T09:08", "184.2", "89", "37.3", "143", "98", "99");
         vpisiPodatke(ehrId, "2016-04-15T09:08", "184.5", "87", "37.1", "149", "91", "98");
         vpisiPodatke(ehrId, "2016-05-29T09:08", "184.4", "86", "36.8", "148", "93", "97");
-    } else {
+    } else if (stPacienta == 3) {
         vpisiPodatke(ehrId, "2015-11-08T09:08", "170.2", "107", "36.7", "130", "90", "97");
         vpisiPodatke(ehrId, "2015-12-14T09:08", "170.4", "108", "37.5", "131", "88", "98");
         vpisiPodatke(ehrId, "2016-01-16T09:08", "170.5", "109", "36.3", "133", "88", "97");
@@ -120,7 +123,7 @@ function vpisiPodatke(ehrId, datum, visina, teza, temperatura, sistolicni, diast
             //console.log("Podatki za " + ehrId + " vpisani");
 		},
 		error: function(err) {
-            console.log("Prišlo je do napake pri vpisovanju podatkov");
+            $('#sporociloZgoraj').html("Prišlo je do napake pri vpisovanju podatkov: " + JSON.parse(err.responseText).userMessage);
 		}
 	});
 }

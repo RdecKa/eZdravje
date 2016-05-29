@@ -81,15 +81,14 @@ function prikaziPodatke() {
             izbranaOseba = izbranaOsebaEHRZapis;
         }
     }
-    $('#vsebina').css("visibility", "visible");
+    
     $.ajax({
 		url: baseUrl + "/demographics/ehr/" + izbranaOseba + "/party",
         type: 'GET',
 		headers: {"Ehr-Session": sessionId},
 		success: function(data) {
             var party = data.party;
-            //console.log(party.firstNames + " " + party.lastNames);
-            
+            $('#vsebina').css("visibility", "visible");
             $.ajax({
 				url: baseUrl + "/view/" + izbranaOseba + "/height",
 				type: 'GET',
@@ -114,24 +113,26 @@ function prikaziPodatke() {
             				        izrisiGrafITM(itm(teze, visine));
             				        analizirajZadnjiZapis(zadnjaVisina, zadnjaTeza);
             				    } else {
-            				        $('#sporociloSpodaj').text("O tej osebi ne obstaja noben zapis.");
+            				        pobrisiStarePodatke();
+            				        $('#sporociloZgoraj').text("O tej osebi ne obstaja noben zapis.");
             				    }
             				},
-            				error: function (res) {
-            				    console.log("Buuu");
+            				error: function (err) {
+            				    $('#sporociloZgoraj').html("Prišlo je do napake: " + JSON.parse(err.responseText).userMessage);
             				}
                         });
 				    } else {
-				        $('#sporociloSpodaj').text("O tej osebi ne obstaja noben zapis.");
+				        pobrisiStarePodatke();
+				        $('#sporociloZgoraj').text("O tej osebi ne obstaja noben zapis.");
 				    }
 				},
-				error: function (res) {
-				    console.log("Buuu");
+				error: function (err) {
+				    $('#sporociloZgoraj').html("Prišlo je do napake: " + JSON.parse(err.responseText).userMessage);
 				}
             });
 		},
 		error: function(err) {
-		    console.log("Ups");
+		    $('#sporociloZgoraj').text("Vnešen EHR zapis ne pripada nobeni osebi.");
 		}
     });
 }
