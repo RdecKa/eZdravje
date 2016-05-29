@@ -205,9 +205,12 @@ function prikaziPodatke() {
         type: 'GET',
 		headers: {"Ehr-Session": sessionId},
 		success: function(data) {
+		    //bmi(izbranaOseba);
             console.log("Uspešno");
             var party = data.party;
-            console.log(party.firstNames + " " + party.lastNames)
+            console.log(party.firstNames + " " + party.lastNames);
+            var visine = [], teze = [];
+            var niPodatkov = false;
             $.ajax({
 				url: baseUrl + "/view/" + izbranaOseba + "/height",
 				type: 'GET',
@@ -215,8 +218,27 @@ function prikaziPodatke() {
 				success: function (res) {
 				    if (res.length > 0) {
 				        for (var i in res) {
-				            console.log(res[i].time + " " + res[i].weight + res[i].height);
+				            visine[res[i].time] = res[i].height;
 				        }
+				        
+				        $.ajax({
+            				url: baseUrl + "/view/" + izbranaOseba + "/weight",
+            				type: 'GET',
+            				headers: {"Ehr-Session": sessionId},
+            				success: function (res) {
+            				    if (res.length > 0) {
+            				        for (var i in res) {
+            				            teze[res[i].time] = res[i].weight;
+            				        }
+            				        izrisiGrafITM(itm(teze, visine));
+            				    } else {
+            				        $('#sporociloSpodaj').text("O tej osebi ne obstaja noben zapis.");
+            				    }
+            				},
+            				error: function (res) {
+            				    console.log("Buuu");
+            				}
+                        });
 				    } else {
 				        $('#sporociloSpodaj').text("O tej osebi ne obstaja noben zapis.");
 				    }
@@ -230,4 +252,20 @@ function prikaziPodatke() {
 		    console.log("Ups");
 		}
     });
+}
+
+function itm(teze, visine) {
+    console.log(visine);
+    console.log(teze);
+    var bmi = [];
+    for (var i in teze) {
+        var m = teze[i];
+        var h = visine[i];
+        bmi.push(m / (h * h / 10000));
+    }
+    return bmi;
+}
+
+function izrisiGrafITM(itm) {
+    console.log(itm);
 }
