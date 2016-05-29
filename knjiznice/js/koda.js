@@ -186,7 +186,7 @@ $(document).ready(function() {
 });
 
 function pobrisiStarePodatke() {
-    //$('#sporociloLevo').text("");
+    $('#sporociloLevo').text("");
     $('#sporociloDesno').text("");
     $('#podatkiDesno').text("");
     pobrisiGraf();
@@ -332,12 +332,13 @@ function vrniDatum(string) {
 
 function izrisiNovGraf() {
     pobrisiGraf();
+    $('#sporociloLevo').text("");
     var start = vrniDatum($('#obdobjePrikazaZacetek').val());
     var stop = vrniDatum($('#obdobjePrikazaKonec').val());
     if (stop < start) {
         $('#sporociloLevo').text("Neveljaven termin!");
     } else {
-        var bmi = []
+        var bmi = [];
         for (var i in visine) {
             var d = vrniDatum(i);
             if (d >= start && d <= stop) {
