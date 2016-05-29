@@ -30,6 +30,8 @@ function getSessionId() {
  * @param stPacienta zaporedna številka pacienta (1, 2 ali 3)
  * @return ehrId generiranega pacienta
  */
+ 
+var rezultat = "";
 function generirajPodatke(stPacienta) {
     var ehrId = "";
     sessionId = getSessionId();
@@ -40,6 +42,7 @@ function generirajPodatke(stPacienta) {
         ime = "Alenka";
         priimek = "Pustovrh";
         datumRojstva = "1996-07-01T15:17";
+        rezultat += "<option value='__prazno__'></option>";
     } else if (stPacienta == 2) {
         ime = "Jakob";
         priimek = "Jezeršek";
@@ -71,16 +74,19 @@ function generirajPodatke(stPacienta) {
                 data: JSON.stringify(partyData),
                 success: function (party) {
                     console.log("Uspešno kreiran EHR: " + ehrId);
-                    var opt = document.createElement("option");
-                    opt.value = ehrId;
-                    opt.text = ime + " " + priimek;
-                    document.getElementById("izberiOsebo").add(opt);
+                    rezultat += "<option value='" + ehrId + "'>" + ime + " " + priimek + "</option>";
+                    //var opt = document.createElement("option");
+                    //opt.value = ehrId;
+                    //opt.text = ime + " " + priimek;
+                    //document.getElementById("izberiOsebo").add(opt);
                     if (stPacienta == 3) {
-                        var opt = document.createElement("option");
-                        opt.value = "";
-                        opt.text = "... drugo ...";
-                        document.getElementById("izberiOsebo").add(opt);
+                        //var opt = document.createElement("option");
+                        //opt.value = "";
+                        //opt.text = "... drugo ...";
+                        //document.getElementById("izberiOsebo").add(opt);
+                        rezultat += "<option value=''>... drugo ...</option>";
                     }
+                    $('#izberiOsebo').html(rezultat);
                     generirajMeritve(stPacienta, ehrId);
                     return ehrId;
                 },
@@ -99,7 +105,7 @@ function generirajMeritve(stPacienta, ehrId) {
         vpisiPodatke(ehrId, "2016-02-01T09:08", "173.4", "52", "36.9", "121", "78", "98");
         vpisiPodatke(ehrId, "2016-03-01T09:08", "173.4", "51", "37.1", "123", "78", "98");
         vpisiPodatke(ehrId, "2016-04-01T09:08", "173.3", "53", "36.6", "119", "81", "98");
-        //vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
+        vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
     } else if (stPacienta == 2) {
         vpisiPodatke(ehrId, "2015-12-15T09:08", "184.4", "86", "37.7", "148", "90", "98");
         vpisiPodatke(ehrId, "2016-01-03T09:08", "184.4", "87", "36.5", "141", "98", "98");
@@ -157,9 +163,9 @@ var sessionId;
 
 $(document).ready(function() {
     $('#vsebina').css("visibility", "hidden");
-    for (var i = 1; i <= 3; i++) {
+    /*for (var i = 1; i <= 3; i++) {
         generirajPodatke(i);
-    }
+    }*/
     $('#izberiOsebo').change(function() {
         $('#sporociloZgoraj').text("");
         $('#sporociloSpodaj').text("");
