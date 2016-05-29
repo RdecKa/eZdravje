@@ -198,15 +198,12 @@ function prikaziPodatke() {
         } else {
             izbranaOseba = izbranaOsebaEHRZapis;
         }
-        console.log("Uspešno:", izbranaOseba);
     }
     $.ajax({
 		url: baseUrl + "/demographics/ehr/" + izbranaOseba + "/party",
         type: 'GET',
 		headers: {"Ehr-Session": sessionId},
 		success: function(data) {
-		    //bmi(izbranaOseba);
-            console.log("Uspešno");
             var party = data.party;
             console.log(party.firstNames + " " + party.lastNames);
             var visine = [], teze = [];
@@ -220,6 +217,7 @@ function prikaziPodatke() {
 				        for (var i in res) {
 				            visine[res[i].time] = res[i].height;
 				        }
+				        var zadnjaVisina = res[res.length - 1].height;
 				        
 				        $.ajax({
             				url: baseUrl + "/view/" + izbranaOseba + "/weight",
@@ -230,7 +228,9 @@ function prikaziPodatke() {
             				        for (var i in res) {
             				            teze[res[i].time] = res[i].weight;
             				        }
+            				        var zadnjaTeza = res[res.length - 1].weight;
             				        izrisiGrafITM(itm(teze, visine));
+            				        analizirajZadnjiZapis(zadnjaVisina, zadnjaTeza);
             				    } else {
             				        $('#sporociloSpodaj').text("O tej osebi ne obstaja noben zapis.");
             				    }
@@ -255,8 +255,6 @@ function prikaziPodatke() {
 }
 
 function itm(teze, visine) {
-    console.log(visine);
-    console.log(teze);
     var bmi = [];
     for (var i in teze) {
         var m = teze[i];
@@ -268,4 +266,37 @@ function itm(teze, visine) {
 
 function izrisiGrafITM(itm) {
     console.log(itm);
+}
+
+function analizirajZadnjiZapis(visina, teza) {
+    var itm = teza / (visina * visina / 10000);
+    var min = Math.round(optimalnaTezaMin(visina));
+    var max = Math.round(optimalnaTezaMax(visina));
+    var rezultat = "Rezultati zadnje meritve kažejo, da je vaša teža ";
+    if (itm < 18.5) {
+        rezultat += "prenizka.";
+    } else if (itm < 25) {
+        rezultat += "ravno pravšnja.";
+    } else if (itm < 30) {
+        rezultat += "prevelika.";
+    } else {
+        rezultat += "močno prevelika.";
+    }
+    if (itm < 18.5 || itm > 24.9) {
+        rezultat += " Vaša opimalna teža je med " + min + "kg in " + max + "kg.";
+    }
+    $('#podatkiDesno').html('<span class="krepko">Višina: </span><span>' + visina + 'kg</span></br>' +
+        '<span class="krepko">Teža: </span><span>' + teza + 'kg</span></br>' + 
+        '<span class="krepko">ITM: </span>' + Math.round(itm * 10)/10);
+    $('#sporociloDesno').text(rezultat);
+}
+
+function optimalnaTezaMin(visina) {
+    var min = 18.5 * visina * visina / 10000;
+    return min;
+}
+
+function optimalnaTezaMax(visina) {
+    var max = 24.9 * visina * visina / 10000;
+    return max;
 }
