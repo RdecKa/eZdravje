@@ -322,9 +322,10 @@ function optimalnaTezaMax(visina) {
 }
 
 function vrniDatum(string) {
-    var leto = parseInt(string.substring(0, 4));
-    var mesec = parseInt(string.substring(5, 7)) - 1;
-    var dan = parseInt(string.substring(8, 10));
+    var data = string.split("-");
+    var leto = parseInt(data[0]);
+    var mesec = parseInt(data[1]) - 1;
+    var dan = parseInt(data[2]);
     var d = new Date(leto, mesec, dan);
     return d;
 }
@@ -333,7 +334,6 @@ function izrisiNovGraf() {
     pobrisiGraf();
     var start = vrniDatum($('#obdobjePrikazaZacetek').val());
     var stop = vrniDatum($('#obdobjePrikazaKonec').val());
-    console.log(start, stop);
     if (stop < start) {
         $('#sporociloLevo').text("Neveljaven termin!");
     } else {
