@@ -42,7 +42,7 @@ var svg = d3.select("graf").append("svg")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
       .attr("dy", ".71em")
-      .style("text-anchor", "end")
+      .style("text-anchor", "end");
 
   svg.selectAll(".bar")
       .data(data)
@@ -51,8 +51,12 @@ var svg = d3.select("graf").append("svg")
       .attr("x", function(d) { return x(d.datum); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.itm); })
-      .attr("height", function(d) { return height - y(d.itm); });
-
+      .attr("height", function(d) { return height - y(d.itm); })
+      .style("fill", function(d) {
+          if (d.itm < 18.5) return "blue"; 
+          else if (d.itm >= 25 ) return "red";
+          else return "lawngreen";
+      });
 /*function type(d) {
   d.itm = +d.itm;
   return d;

@@ -27,9 +27,6 @@ var sessionId;
 
 $(document).ready(function() {
     $('#vsebina').css("visibility", "hidden");
-    /*for (var i = 1; i <= 3; i++) {
-        generirajPodatke(i);
-    }*/
     $('#izberiOsebo').change(function() {
         $('#sporociloZgoraj').text("");
         $('#sporociloSpodaj').text("");
@@ -61,6 +58,9 @@ function pobrisiStarePodatke() {
     $('#podatkiDesno').text("");
     pobrisiGraf();
     $('#vsebina').css("visibility", "hidden");
+    $('#obdobjePrikazaZacetek').val("");
+    $('#obdobjePrikazaKonec').val("");
+    $('#izpisEHRID').text("");
 }
 
 var visine, teze;
@@ -74,11 +74,11 @@ function prikaziPodatke() {
         $('#sporociloZgoraj').text("Oseba ni izbrana!");
         return;
     } else {
-        $('#sporociloZgoraj').text("");
         if (izbranaOsebaEHRZapis == null) {
             izbranaOseba = izbranaOsebaVpisanEHRZapis;
         } else {
             izbranaOseba = izbranaOsebaEHRZapis;
+            $('#izpisEHRID').text("EhrID: " + izbranaOseba);
         }
     }
     
@@ -98,7 +98,7 @@ function prikaziPodatke() {
 				        for (var i in res) {
 				            visine[res[i].time] = res[i].height;
 				        }
-				        var zadnjaVisina = res[res.length - 1].height;
+				        var zadnjaVisina = res[0].height;
 				        
 				        $.ajax({
             				url: baseUrl + "/view/" + izbranaOseba + "/weight",
@@ -109,7 +109,7 @@ function prikaziPodatke() {
             				        for (var i in res) {
             				            teze[res[i].time] = res[i].weight;
             				        }
-            				        var zadnjaTeza = res[res.length - 1].weight;
+            				        var zadnjaTeza = res[0].weight;
             				        izrisiGrafITM(itm(teze, visine));
             				        analizirajZadnjiZapis(zadnjaVisina, zadnjaTeza);
             				    } else {
@@ -175,7 +175,7 @@ function analizirajZadnjiZapis(visina, teza) {
     if (itm < 18.5 || itm > 24.9) {
         rezultat += " Vaša opimalna teža je med " + min + "kg in " + max + "kg.";
     }
-    $('#podatkiDesno').html('<span class="krepko">Višina: </span><span>' + visina + 'm</span></br>' +
+    $('#podatkiDesno').html('<span class="krepko">Višina: </span><span>' + visina + 'cm</span></br>' +
         '<span class="krepko">Teža: </span><span>' + teza + 'kg</span></br>' + 
         '<span class="krepko">ITM: </span>' + Math.round(itm * 10)/10);
     $('#sporociloDesno').text(rezultat);
@@ -203,8 +203,17 @@ function vrniDatum(string) {
 function izrisiNovGraf() {
     pobrisiGraf();
     $('#sporociloLevo').text("");
-    var start = vrniDatum($('#obdobjePrikazaZacetek').val());
-    var stop = vrniDatum($('#obdobjePrikazaKonec').val());
+    var start = $('#obdobjePrikazaZacetek').val();
+    var stop = $('#obdobjePrikazaKonec').val();
+    if (start == "") {
+        start = "1500-01-01";
+    }
+    start = vrniDatum(start);
+    if (stop == "") {
+        stop = new Date();
+    } else {
+        stop = vrniDatum(stop);
+    }
     if (stop < start) {
         $('#sporociloLevo').text("Neveljaven termin!");
     } else {

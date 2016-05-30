@@ -9,6 +9,7 @@
  
 var rezultat = "";
 function generirajPodatke(stPacienta) {
+    pobrisiStarePodatke();
     var ehrId = "";
     sessionId = getSessionId();
     var ime = "";
@@ -78,17 +79,18 @@ function generirajMeritve(stPacienta, ehrId) {
         vpisiPodatke(ehrId, "2016-04-01T09:08", "173.3", "53", "36.6", "119", "81", "98");
         vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
     } else if (stPacienta == 2) {
-        vpisiPodatke(ehrId, "2015-12-15T09:08", "184.4", "86", "37.7", "148", "90", "98");
+        vpisiPodatke(ehrId, "2015-12-15T09:08", "184.4", "85", "37.7", "148", "90", "98");
         vpisiPodatke(ehrId, "2016-01-03T09:08", "184.4", "87", "36.5", "141", "98", "98");
-        vpisiPodatke(ehrId, "2016-02-27T09:08", "184.2", "89", "37.3", "143", "98", "99");
-        vpisiPodatke(ehrId, "2016-04-15T09:08", "184.5", "87", "37.1", "149", "91", "98");
-        vpisiPodatke(ehrId, "2016-05-29T09:08", "184.4", "86", "36.8", "148", "93", "97");
+        vpisiPodatke(ehrId, "2016-02-27T09:08", "184.2", "85", "37.3", "143", "98", "99");
+        vpisiPodatke(ehrId, "2016-04-15T09:08", "184.5", "83", "37.1", "149", "91", "98");
+        vpisiPodatke(ehrId, "2016-05-29T09:08", "184.4", "81", "36.8", "148", "93", "97");
     } else if (stPacienta == 3) {
         vpisiPodatke(ehrId, "2015-11-08T09:08", "170.2", "107", "36.7", "130", "90", "97");
         vpisiPodatke(ehrId, "2015-12-14T09:08", "170.4", "108", "37.5", "131", "88", "98");
         vpisiPodatke(ehrId, "2016-01-16T09:08", "170.5", "109", "36.3", "133", "88", "97");
         vpisiPodatke(ehrId, "2016-03-24T09:08", "170.4", "110", "36.8", "140", "93", "96");
         vpisiPodatke(ehrId, "2016-05-20T09:08", "170.2", "111", "36.5", "137", "93", "97");
+        alert("Generiranje podatkov končano.");
     }
 }
 

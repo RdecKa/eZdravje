@@ -59,6 +59,11 @@ h2 {
     border: 1px solid orange;
 }
 
+#izpisEHRID {
+    color: #888;
+    font-size: 0.5em;
+}
+
 .polovica {
     border: 1px solid green;
 }
@@ -68,10 +73,6 @@ h2 {
 }
 
 /* CHART */
-
-graf rect {
-  fill: steelblue;
-}
 
 graf text {
   fill: black;
@@ -84,5 +85,5 @@ graf text {
 }
 
 .bar:hover {
-    fill: black;
+    fill: black !important;
 }

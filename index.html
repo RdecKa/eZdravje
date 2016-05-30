@@ -44,18 +44,19 @@
   <div class="container" id="celotna-stran">
     <div class="row">
       <div class="zgoraj">
-        <h1>Želim podatke o osebi:</h1>
+        <h1>Kdo ste?</h1>
         <div class="center">
           <select class="form-control input-sm" id="izberiOsebo">
             <option value="__prazno__"></option>
-            <option value="8d2e4427-289f-4a7a-9e17-cfb1b8f13a55">Jakob Jezeršek</option>
+            <option value="ea6ce11c-cea8-41ad-b27c-03259ecc465f">Jakob Jezeršek</option>
             <option value="a726a6ee-286c-4a63-9303-228adf988f07">Alenka Pustovrh</option>
             <option value="ddec21d4-32e4-4bba-b6f5-245ba305e145">Mojca Kržišnik</option>
             <option value="">... drugo ...</option>
           </select>
           <div id="izberiOseboDrugo">
-            <input id="izbranaOsebaEHR" type="text" class="form-control input-mini" placeholder="EHR ID">
+            <input id="izbranaOsebaEHR" type="text" class="form-control input-mini" placeholder="EhrID">
           </div>
+          <p id="izpisEHRID"></p>
           <button type="button" class="btn btn-primary btn-xs" onclick="prikaziPodatke()">Prikaži podatke</button>
           <p id="sporociloZgoraj" class="sporocilo"></p>
         </div>
@@ -68,7 +69,7 @@
             <div class="rezultat">
               <p class="sporocilo">
                 <span class="obdobjeBesedilo">Prikaži le ITM v odobju med </span>
-                <span><input id="obdobjePrikazaZacetek" type="text" class="form-control input-mini obdobje" placeholder="2016-03-02"></span>
+                <span><input id="obdobjePrikazaZacetek" type="text" class="form-control input-mini obdobje" placeholder="2000-01-01"></span>
                 <span class="obdobjeBesedilo">in</span>
                 <span><input id="obdobjePrikazaKonec" type="text" class="form-control input-mini obdobje" placeholder="2016-06-05"></span>
                 <button type="button" class="btn btn-primary btn-xs obdobjeButton" onclick="izrisiNovGraf()">Posodobi graf</button>
