@@ -52,7 +52,7 @@ function generirajPodatke(stPacienta) {
                 contentType: 'application/json',
                 data: JSON.stringify(partyData),
                 success: function (party) {
-                    //console.log("Uspešno kreiran EHR (" + ime + " " + priimek + "): " + ehrId);
+                    console.log("Uspešno kreiran EHR (" + ime + " " + priimek + "): " + ehrId);
                     rezultat += "<option value='" + ehrId + "'>" + ime + " " + priimek + "</option>";
                     if (stPacienta == 3) {
                         rezultat += "<option value=''>... drugo ...</option>";
@@ -73,18 +73,30 @@ function generirajPodatke(stPacienta) {
 
 function generirajMeritve(stPacienta, ehrId) {
     if (stPacienta == 1) {
-        vpisiPodatke(ehrId, "2016-01-01T09:08", "173.3", "49", "36.7", "118", "80", "97");
-        vpisiPodatke(ehrId, "2016-02-01T09:08", "173.4", "52", "36.9", "121", "78", "98");
-        vpisiPodatke(ehrId, "2016-03-01T09:08", "173.4", "51", "37.1", "123", "78", "98");
-        vpisiPodatke(ehrId, "2016-04-01T09:08", "173.3", "53", "36.6", "119", "81", "98");
-        vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "51", "36.7", "118", "83", "97");
+        vpisiPodatke(ehrId, "2015-10-01T09:08", "173.5", "58", "36.7", "118", "83", "98");
+        vpisiPodatke(ehrId, "2015-11-01T09:08", "173.4", "58", "36.5", "119", "80", "98");
+        vpisiPodatke(ehrId, "2015-12-01T09:08", "173.4", "56", "36.7", "118", "83", "97");
+        vpisiPodatke(ehrId, "2016-01-01T09:08", "173.3", "55", "36.7", "118", "80", "97");
+        vpisiPodatke(ehrId, "2016-02-01T09:08", "173.4", "57", "36.9", "121", "78", "98");
+        vpisiPodatke(ehrId, "2016-03-01T09:08", "173.4", "56", "37.1", "123", "78", "98");
+        vpisiPodatke(ehrId, "2016-04-01T09:08", "173.3", "54", "36.6", "119", "81", "98");
+        vpisiPodatke(ehrId, "2016-05-01T09:08", "173.4", "52", "36.7", "118", "83", "97");
+        vpisiPodatke(ehrId, "2016-06-01T09:08", "173.4", "51", "36.3", "119", "82", "97");
     } else if (stPacienta == 2) {
-        vpisiPodatke(ehrId, "2015-12-15T09:08", "184.4", "85", "37.7", "148", "90", "98");
+        vpisiPodatke(ehrId, "2015-09-15T09:08", "184.4", "85", "36.7", "147", "90", "99");
+        vpisiPodatke(ehrId, "2015-10-15T09:08", "184.4", "87", "36.7", "148", "88", "98");
+        vpisiPodatke(ehrId, "2015-11-15T09:08", "184.6", "89", "37.2", "148", "90", "98");
+        vpisiPodatke(ehrId, "2015-12-15T09:08", "184.4", "88", "37.7", "148", "90", "98");
         vpisiPodatke(ehrId, "2016-01-03T09:08", "184.4", "87", "36.5", "141", "98", "98");
         vpisiPodatke(ehrId, "2016-02-27T09:08", "184.2", "85", "37.3", "143", "98", "99");
         vpisiPodatke(ehrId, "2016-04-15T09:08", "184.5", "83", "37.1", "149", "91", "98");
         vpisiPodatke(ehrId, "2016-05-29T09:08", "184.4", "81", "36.8", "148", "93", "97");
+        vpisiPodatke(ehrId, "2016-06-04T09:08", "184.4", "81", "36.9", "147", "93", "97");
     } else if (stPacienta == 3) {
+        vpisiPodatke(ehrId, "2015-06-08T09:08", "170.2", "103", "36.8", "130", "90", "97");
+        vpisiPodatke(ehrId, "2015-07-08T09:08", "170.1", "104", "36.7", "132", "93", "97");
+        vpisiPodatke(ehrId, "2015-09-08T09:08", "170.4", "105", "36.6", "130", "94", "97");
+        vpisiPodatke(ehrId, "2015-10-08T09:08", "170.2", "106", "36.7", "132", "90", "98");
         vpisiPodatke(ehrId, "2015-11-08T09:08", "170.2", "107", "36.7", "130", "90", "97");
         vpisiPodatke(ehrId, "2015-12-14T09:08", "170.4", "108", "37.5", "131", "88", "98");
         vpisiPodatke(ehrId, "2016-01-16T09:08", "170.5", "109", "36.3", "133", "88", "97");
