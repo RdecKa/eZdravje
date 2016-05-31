@@ -7,6 +7,14 @@
  * @return ehrId generiranega pacienta
  */
  
+function generiraj() {
+    for (var i = 1; i <= 3; i++) {
+        generirajPodatke(i);
+    }
+    //alert("");
+    $('#izpisEHRID').text("Novi pacienti so na voljo v spustnem meniju.");
+}
+
 var rezultat = "";
 function generirajPodatke(stPacienta) {
     pobrisiStarePodatke();
@@ -52,7 +60,7 @@ function generirajPodatke(stPacienta) {
                 contentType: 'application/json',
                 data: JSON.stringify(partyData),
                 success: function (party) {
-                    console.log("Uspešno kreiran EHR (" + ime + " " + priimek + "): " + ehrId);
+                    //console.log("Uspešno kreiran EHR (" + ime + " " + priimek + "): " + ehrId);
                     rezultat += "<option value='" + ehrId + "'>" + ime + " " + priimek + "</option>";
                     if (stPacienta == 3) {
                         rezultat += "<option value=''>... drugo ...</option>";
@@ -62,7 +70,6 @@ function generirajPodatke(stPacienta) {
                     return ehrId;
                 },
                 error: function(err) {
-                    //console.log("Napaka");
                     $('#sporociloZgoraj').html("Prišlo je do napake: " + JSON.parse(err.responseText).userMessage);
                     return null;
                 }
@@ -102,7 +109,6 @@ function generirajMeritve(stPacienta, ehrId) {
         vpisiPodatke(ehrId, "2016-01-16T09:08", "170.5", "109", "36.3", "133", "88", "97");
         vpisiPodatke(ehrId, "2016-03-24T09:08", "170.4", "110", "36.8", "140", "93", "96");
         vpisiPodatke(ehrId, "2016-05-20T09:08", "170.2", "111", "36.5", "137", "93", "97");
-        alert("Generiranje podatkov končano.");
     }
 }
 
@@ -133,9 +139,6 @@ function vpisiPodatke(ehrId, datum, visina, teza, temperatura, sistolicni, diast
 		type: 'POST',
 		contentType: 'application/json',
 		data: JSON.stringify(podatki),
-		success: function (res) {
-            //console.log("Podatki za " + ehrId + " vpisani");
-		},
 		error: function(err) {
             $('#sporociloZgoraj').html("Prišlo je do napake pri vpisovanju podatkov: " + JSON.parse(err.responseText).userMessage);
 		}

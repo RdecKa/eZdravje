@@ -22,7 +22,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">bmitm</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -45,7 +45,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            <p>S to spletno aplikacijo, ki je namenjena vsem, ki se trudijo živeti zdravo, lahko uporabnik spremlja pridobivanje / izgubljanje svoje telesne teže. Aplikacija na osnovi računanja indeksa telesne mase (ITM) uporabniku nudi informacije o tem, kakšna je njegova telesna teža glede na optimalno težo, ki se izračuna na podlagi njegove višine. Če je uporabnik pretežek, mu aplikacija prikaže objave s Twitterja z oznako "loseweight", med katerimi lahko uporabnik poišče motivacijo ali nove ideje za izgubo odvečnih kilogramov, če pa je prelahek, mu prikaže objave z oznako "gainweight", med katerimi se najdejo načini za pridobivanje telesne teže. Poleg tega si uporabnik v izrisanem grafu lahko ogleda spreminjanje svojega ITM skozi čas. Barva posameznega stolpca mu pove, ali je bila njegova teža ob meritvi premajhna (modra), primerna (zelena) ali prevelika (rdeča).</p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -55,7 +55,8 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <p>Aplikacija preko neposrednega API klica pridobi podatke z družabnega omrežja <a href="https://twitter.com/" target="_blank">Twitter</a>. Uporabila sem "<a href="https://dev.twitter.com/web/embedded-timelines/search" target="_blank">Embedded Search Timeline</a>", ki prikaže objave z oznako "loseweight" ali "gainweight" (odvisno od ITM posameznika).</p>
+            <p class="text-muted"><strong>OPOMBA: </strong>V brskalniku Mozilla Firefox se namesto objav prikaže le povezava nanje.</p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
@@ -65,7 +66,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            <p>Pri izrisu grafa spreminjanja ITM lahko uporabnik sam določi obdobje, za katerega želi prikaz podatkov, tako da določi prvi in zadnji dan tega obdobja.</p>
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>
@@ -75,7 +76,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            <p>Uporabila sem <a href="http://bl.ocks.org/mbostock/3885304" target="_blank">stolpični diagram</a>, saj ta najbolj nazorno prikazuje spreminjanje ITM skozi čas.</p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
