@@ -11,7 +11,6 @@ function generiraj() {
     for (var i = 1; i <= 3; i++) {
         generirajPodatke(i);
     }
-    //alert("");
     $('#izpisEHRID').text("Novi pacienti so na voljo v spustnem meniju.");
 }
 
