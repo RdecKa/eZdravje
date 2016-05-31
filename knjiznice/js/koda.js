@@ -61,6 +61,7 @@ function pobrisiStarePodatke() {
     $('#obdobjePrikazaZacetek').val("");
     $('#obdobjePrikazaKonec').val("");
     $('#izpisEHRID').text("");
+    $('#twitter').html("");
 }
 
 var visine, teze;
@@ -164,21 +165,27 @@ function analizirajZadnjiZapis(visina, teza) {
     var max = Math.round(optimalnaTezaMax(visina));
     var rezultat = "Rezultati zadnje meritve kažejo, da je vaša teža ";
     if (itm < 18.5) {
-        rezultat += "prenizka.";
+        rezultat += "<b>prenizka</b>.";
     } else if (itm < 25) {
-        rezultat += "ravno pravšnja.";
+        rezultat += "<b>ravno pravšnja</b>.";
     } else if (itm < 30) {
-        rezultat += "prevelika.";
+        rezultat += "<b>prevelika</b>.";
     } else {
-        rezultat += "močno prevelika.";
+        rezultat += "<b>močno prevelika</b>.";
     }
     if (itm < 18.5 || itm > 24.9) {
-        rezultat += " Vaša opimalna teža je med " + min + "kg in " + max + "kg.";
+        rezultat += " Vaša opimalna teža je med " + min + "kg in " + max + "kg.<br/><br/>Morda vam pri uravnavanju telesne teže pomaga katera izmed spodnjih objav:";
+        if (itm < 18.5) {
+            $('#twitter').html('<a class="twitter-timeline"  href="https://twitter.com/hashtag/gainweight" data-widget-id="737609731099889665">#gainweight Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}(document,"script","twitter-wjs");</script>');
+        } else {
+            $('#twitter').html('<a class="twitter-timeline"  href="https://twitter.com/hashtag/loseweight" data-widget-id="737608275399565316">#loseweight Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}(document,"script","twitter-wjs");</script>')
+        }
+        
     }
     $('#podatkiDesno').html('<span class="krepko">Višina: </span><span>' + visina + 'cm</span></br>' +
         '<span class="krepko">Teža: </span><span>' + teza + 'kg</span></br>' + 
         '<span class="krepko">ITM: </span>' + Math.round(itm * 10)/10);
-    $('#sporociloDesno').text(rezultat);
+    $('#sporociloDesno').html(rezultat);
 }
 
 function optimalnaTezaMin(visina) {

@@ -1,13 +1,10 @@
-#celotna-stran {
-    border: 2px solid red;
-}
-
 .center {
     margin: auto;
 }
 
 h2 {
     text-align: center;
+    margin: 20px auto 40px;
 }
 
 #izberiOsebo {
@@ -39,9 +36,19 @@ h2 {
 }
 
 .zgoraj {
-    border: 1px solid blue;
     text-align: center;
     font-size: 2em;
+    background-color: #CCC;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 15px;
+}
+
+.polovica {
+    background-color: #CCC;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin: 20px auto 10px;
 }
 
 #vsebina {
@@ -54,22 +61,23 @@ h2 {
 }
 
 .sporocilo {
-    /*font-size: 0.8em;*/
-    color: #888;
-    border: 1px solid orange;
+    color: #555;
+    padding: 0 20px;
 }
 
 #izpisEHRID {
-    color: #888;
+    color: #555;
     font-size: 0.5em;
-}
-
-.polovica {
-    border: 1px solid green;
 }
 
 .krepko {
     font-weight: bold;
+}
+
+#podatkiDesno {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    color: #555;
 }
 
 /* CHART */

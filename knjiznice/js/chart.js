@@ -55,7 +55,7 @@ var svg = d3.select("graf").append("svg")
       .style("fill", function(d) {
           if (d.itm < 18.5) return "blue"; 
           else if (d.itm >= 25 ) return "red";
-          else return "lawngreen";
+          else return "green";
       });
 /*function type(d) {
   d.itm = +d.itm;
