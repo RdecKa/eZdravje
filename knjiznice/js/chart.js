@@ -57,10 +57,6 @@ var svg = d3.select("graf").append("svg")
           else if (d.itm >= 25 ) return "red";
           else return "green";
       });
-/*function type(d) {
-  d.itm = +d.itm;
-  return d;
-}*/
 
 }
 

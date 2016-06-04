@@ -66,11 +66,11 @@ function generirajPodatke(stPacienta) {
                     }
                     $('#izberiOsebo').html(rezultat);
                     generirajMeritve(stPacienta, ehrId);
-                    return ehrId;
+                    //return ehrId;
                 },
                 error: function(err) {
                     $('#sporociloZgoraj').html("Prišlo je do napake: " + JSON.parse(err.responseText).userMessage);
-                    return null;
+                    //return null;
                 }
             });
         }

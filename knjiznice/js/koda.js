@@ -1,6 +1,5 @@
 
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
-var queryUrl = baseUrl + '/query';
 
 var username = "ois.seminar";
 var password = "ois4fri";
@@ -111,7 +110,8 @@ function prikaziPodatke() {
             				            teze[res[i].time] = res[i].weight;
             				        }
             				        var zadnjaTeza = res[0].weight;
-            				        izrisiGrafITM(itm(teze, visine));
+            				        var rez = itm(teze, visine);
+            				        izrisiGrafITM(rez);
             				        analizirajZadnjiZapis(zadnjaVisina, zadnjaTeza);
             				    } else {
             				        pobrisiStarePodatke();
@@ -198,8 +198,8 @@ function optimalnaTezaMax(visina) {
     return max;
 }
 
-function vrniDatum(string) {
-    var data = string.split("-");
+function vrniDatum(datum) {
+    var data = datum.split("-");
     var leto = parseInt(data[0]);
     var mesec = parseInt(data[1]) - 1;
     var dan = parseInt(data[2]);
